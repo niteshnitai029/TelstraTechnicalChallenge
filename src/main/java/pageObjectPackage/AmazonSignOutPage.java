@@ -1,0 +1,61 @@
+package pageObjectPackage;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class AmazonSignOutPage {
+	WebDriver driver;
+	public AmazonSignOutPage(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+			//Accounts and list button object
+			@FindBy(how = How.XPATH, using = "//span[contains(@class,'nav-line-2')][contains(text(),'Account & Lists')]")
+			private WebElement AccountsAndList_Button;
+			
+			//Sign out link
+			@FindBy(how = How.XPATH, using = "//span[contains(text(),'Sign Out')]")
+			private WebElement SignOut_Link;
+			
+			//User name/Email text box object in the sign in page
+			@FindBy(how = How.XPATH, using = "//input[@id='ap_email']")
+			private WebElement Email_Textbox;
+			
+			//Continue button in the sign in page
+			@FindBy(how = How.XPATH, using = "//input[@id='continue']")
+			private WebElement Continue_Button;
+			
+			//Wait for elements to load
+			public void waitForElement(WebElement value, WebDriver driver)
+		     {
+		         // wait for field
+		         WebDriverWait wait = new WebDriverWait(driver, 60);
+		             wait.until(ExpectedConditions.visibilityOf(value));
+		             System.out.print(".");      
+		     }
+			
+			public void signOutAmazonSite() {
+				//Hover to Accounts and List
+				Actions actions = new Actions(driver);
+				actions.moveToElement(AccountsAndList_Button);
+				
+				//Click Signout link
+				actions.moveToElement(SignOut_Link);
+				actions.click().build().perform();
+				
+				//Wait for login page
+				waitForElement(Email_Textbox, driver);
+				waitForElement(Continue_Button, driver);
+			}
+			
+			public void closeBrowser() {
+				driver.close();
+			}
+}
