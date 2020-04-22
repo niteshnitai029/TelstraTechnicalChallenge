@@ -64,11 +64,38 @@ public class ConfigFileReader {
 		return driver;
 	 }
 	 
-	 public WebDriver openAmazonSite() {
-		 driver.get(getApplicationUrl());
-			LoggerForTestCases.info("Amazon URL loaded successfully");
-			return driver;
+	 public String getEmailID() {
+		 String getEmailID = properties.getProperty("EmailID");
+		 if (getEmailID != null)
+			 return getEmailID;
+		 else 
+			 throw new RuntimeException("Email ID is not specified in properties file.");
 	 }
+	 
+	 public String getPassword() {
+		 String getPassword = properties.getProperty("Password");
+		 if (getPassword != null)
+			 return getPassword;
+		 else 
+			 throw new RuntimeException("Password is not specified in properties file.");
+	 }
+	 
+	 public String getSearchItem() {
+		 String getSearchItem = properties.getProperty("SearchItem");
+		 if (getSearchItem != null)
+			 return getSearchItem;
+		 else 
+			 throw new RuntimeException("Search item is not specified in properties file.");
+	 }
+	 
+	 public String getSelectItemXpath() {
+		 String getSelectItemXpath = properties.getProperty("SelectItemXpath");
+		 if (getSelectItemXpath != null)
+			 return getSelectItemXpath;
+		 else 
+			 throw new RuntimeException("Search item xpath is not specified in properties file.");
+	 }
+	 
 }
 	 
 

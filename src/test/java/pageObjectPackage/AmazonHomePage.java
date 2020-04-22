@@ -9,10 +9,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import dataProvider.ConfigFileReader;
 import utilityPackage.WaitForElementUtility;
 
 public class AmazonHomePage {
 	WebDriver driver;
+	ConfigFileReader configFileReader;
 	WaitForElementUtility waitForElementUtility = new WaitForElementUtility();
 	public AmazonHomePage(WebDriver driver) {
 		this.driver = driver;
@@ -44,7 +46,7 @@ public class AmazonHomePage {
 			waitForElementUtility.waitForElement(Title_Text, driver);
 			
 			//Enter "Sony 55 inch TV" in the search criteria
-			Search_Textbox.sendKeys("Sony 55 inch TV");
+			Search_Textbox.sendKeys(new ConfigFileReader().getSearchItem());
 			Search_Button.click();
 		}
 		
@@ -57,6 +59,7 @@ public class AmazonHomePage {
 			
 			//select random item
 			WebElement selectItem = driver.findElement(By.xpath("//div[@data-index='"+ x +"']//a[@class='a-link-normal a-text-normal']"));
+			//WebElement selectItem = driver.findElement(By.xpath(new ConfigFileReader().getSelectItemXpath()));
 			selectItem.click();
 		}
 		

@@ -6,11 +6,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import dataProvider.ConfigFileReader;
 import utilityPackage.WaitForElementUtility;
 
 public class AmazonSignInPage {
 	
 	WebDriver driver;
+	ConfigFileReader configFileReader;
 	WaitForElementUtility waitForElementUtility = new WaitForElementUtility();
 	public AmazonSignInPage(WebDriver driver) {
 		this.driver = driver;
@@ -50,7 +52,7 @@ public class AmazonSignInPage {
 		}
 		//Enter username and click continue button
 		public void EnterUsername_ClickContinue() {
-			Email_Textbox.sendKeys("tesltratask@gmail.com");
+			Email_Textbox.sendKeys(new ConfigFileReader().getEmailID());
 			Continue_Button.click();
 			
 			//Wait for elements to load
@@ -61,7 +63,7 @@ public class AmazonSignInPage {
 		//Enter password and click sign button
 		public void EnterPassword_ClickSignIn() {
 			
-			Password_Textbox.sendKeys("testuser1");
+			Password_Textbox.sendKeys(new ConfigFileReader().getPassword());
 			SignInSubmit_Button.click();
 		}
 		
