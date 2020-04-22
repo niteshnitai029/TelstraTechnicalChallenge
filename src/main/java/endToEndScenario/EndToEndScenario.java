@@ -16,7 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class EndToEndScenario {
 
 	@Test
-	public void telstraTask() {
+	public void telstraTask() throws Exception {
 		
 					//Launching browser and navigate to amazon website
 					System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\Drivers\\chromedriver.exe");
@@ -93,6 +93,7 @@ public class EndToEndScenario {
 					Actions actions = new Actions(driver);
 					WebElement mainMenu = driver.findElement(By.xpath("//span[contains(@class,'nav-line-2')][contains(text(),'Account & Lists')]"));
 					actions.moveToElement(mainMenu);
+					Thread.sleep(2000);
 					
 					//Sign out the amazon
 					WebElement signOutButton = driver.findElement(By.xpath("//span[contains(text(),'Sign Out')]"));

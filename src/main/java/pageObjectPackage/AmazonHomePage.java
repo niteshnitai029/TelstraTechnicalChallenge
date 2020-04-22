@@ -8,19 +8,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import utilityPackage.WaitForElementUtility;
 
 public class AmazonHomePage {
 	WebDriver driver;
-	
+	WaitForElementUtility waitForElementUtility = new WaitForElementUtility();
 	public AmazonHomePage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 	
 		//Title Verification object
-		@FindBy(how = How.XPATH, using = "//span[contains(text(),'Hello. Sign in')]")
+		@FindBy(how = How.XPATH, using = "//span[contains(text(),'Hello, Telstra')]")
 		private WebElement Title_Text;
 		
 		//Search text box object
@@ -39,18 +39,9 @@ public class AmazonHomePage {
 		@FindBy(how = How.XPATH, using = "//h1[@class='a-size-medium a-text-bold']")
 		private WebElement AddedToCart_Text;
 		
-		//Wait for elements to load
-		public void waitForElement(WebElement value, WebDriver driver)
-	     {
-	         // wait for field
-	         WebDriverWait wait = new WebDriverWait(driver, 60);
-	             wait.until(ExpectedConditions.visibilityOf(value));
-	             System.out.print(".");      
-	     }
-		
 		//Search sony 55 inch tv in Amazon.com
 		public void searchItemSonyTV() {
-			waitForElement(Title_Text, driver);
+			waitForElementUtility.waitForElement(Title_Text, driver);
 			
 			//Enter "Sony 55 inch TV" in the search criteria
 			Search_Textbox.sendKeys("Sony 55 inch TV");
@@ -72,14 +63,14 @@ public class AmazonHomePage {
 		//Add to cart
 		public void AddToCart() {
 			
-			waitForElement(AddToCart_Button, driver);
+			waitForElementUtility.waitForElement(AddToCart_Button, driver);
 			AddToCart_Button.click();
 		}
 		
 		//Added to cart confirmation
 		public void AddedToCartConfirmation() {
 			
-			waitForElement(AddedToCart_Text, driver);
+			waitForElementUtility.waitForElement(AddedToCart_Text, driver);
 			String AddedToCartText = AddedToCart_Text.getText();
 			String expectedOutput= "Added to Cart";
 			

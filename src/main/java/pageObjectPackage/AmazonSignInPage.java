@@ -5,12 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import utilityPackage.WaitForElementUtility;
 
 public class AmazonSignInPage {
 	
 	WebDriver driver;
+	WaitForElementUtility waitForElementUtility = new WaitForElementUtility();
 	public AmazonSignInPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -36,33 +37,33 @@ public class AmazonSignInPage {
 		@FindBy(how = How.XPATH, using = "//input[@id='signInSubmit']")
 		private WebElement SignInSubmit_Button;
 		
-		public void waitForElement(WebElement value, WebDriver driver)
-	     {
-	         // wait for field
-	         WebDriverWait wait = new WebDriverWait(driver, 60);
-	             wait.until(ExpectedConditions.visibilityOf(value));
-	             System.out.print(".");      
-	     }
 		
 		//Sign in to Amazon Website
-		public void Signin_Process_AmazonSite() throws Exception {
+		public void Click_Signin_Link() throws Exception {
 			//Click Sign in button
 			Signin_Button.click();
 			
 			//Wait for elements to load
-			waitForElement(Email_Textbox, driver);
-			waitForElement(Continue_Button, driver);
+			waitForElementUtility.waitForElement(Email_Textbox, driver);
+			waitForElementUtility.waitForElement(Continue_Button, driver);
 			
-			//Enter email and click continue
+		}
+		//Enter username and click continue button
+		public void EnterUsername_ClickContinue() {
 			Email_Textbox.sendKeys("tesltratask@gmail.com");
 			Continue_Button.click();
 			
 			//Wait for elements to load
-			waitForElement(Password_Textbox, driver);
-			waitForElement(SignInSubmit_Button, driver);
+			waitForElementUtility.waitForElement(Password_Textbox, driver);
+			waitForElementUtility.waitForElement(SignInSubmit_Button, driver);
+		}
+		
+		//Enter password and click sign button
+		public void EnterPassword_ClickSignIn() {
 			
-			//Enter password and click sign in button
 			Password_Textbox.sendKeys("testuser1");
 			SignInSubmit_Button.click();
 		}
+		
+		
 }

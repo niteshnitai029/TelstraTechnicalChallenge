@@ -6,11 +6,12 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import utilityPackage.WaitForElementUtility;
 
 public class AmazonSignOutPage {
 	WebDriver driver;
+	WaitForElementUtility waitForElementUtility = new WaitForElementUtility();
 	public AmazonSignOutPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -32,15 +33,6 @@ public class AmazonSignOutPage {
 			@FindBy(how = How.XPATH, using = "//input[@id='continue']")
 			private WebElement Continue_Button;
 			
-			//Wait for elements to load
-			public void waitForElement(WebElement value, WebDriver driver)
-		     {
-		         // wait for field
-		         WebDriverWait wait = new WebDriverWait(driver, 60);
-		             wait.until(ExpectedConditions.visibilityOf(value));
-		             System.out.print(".");      
-		     }
-			
 			public void signOutAmazonSite() {
 				//Hover to Accounts and List
 				Actions actions = new Actions(driver);
@@ -51,8 +43,8 @@ public class AmazonSignOutPage {
 				actions.click().build().perform();
 				
 				//Wait for login page
-				waitForElement(Email_Textbox, driver);
-				waitForElement(Continue_Button, driver);
+				waitForElementUtility.waitForElement(Email_Textbox, driver);
+				waitForElementUtility.waitForElement(Continue_Button, driver);
 			}
 			
 			public void closeBrowser() {
