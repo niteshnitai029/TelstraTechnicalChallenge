@@ -2,6 +2,7 @@ package stepDefinitions;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import dataProvider.ConfigFileReader;
 import io.cucumber.java.After;
@@ -27,17 +28,13 @@ public class Steps {
 	public void setup() {
 		configFileReader=new ConfigFileReader();
 		Log = new LoggerForTestCases();
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\Drivers\\chromedriver.exe");
-		LoggerForTestCases.info("Chrome driver for testing is loaded successfully");
-		driver = new ChromeDriver();
+		driver = configFileReader.getBrowser();
 		LoggerForTestCases.info("Chrome driver inititated");
 		LoggerForTestCases.info("Web driver wait has inititated and set to 20 seconds");
 	}
 	
 	@Given("user is on Amazon home page")
 	public void user_is_on_Amazon_home_page() throws Exception {
-		driver.manage().window().maximize();
-		LoggerForTestCases.info("Chrome window has maximized");
 		driver.get(configFileReader.getApplicationUrl());
 		LoggerForTestCases.info("Amazon URL loaded successfully");
 	}
