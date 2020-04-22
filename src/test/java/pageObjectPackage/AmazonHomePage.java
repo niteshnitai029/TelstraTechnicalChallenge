@@ -71,7 +71,7 @@ public class AmazonHomePage {
 		}
 		
 		//Added to cart confirmation
-		public void AddedToCartConfirmation() {
+		public void AddedToCartConfirmation() throws Exception {
 			
 			waitForElementUtility.waitForElement(AddedToCart_Text, driver);
 			String AddedToCartText = AddedToCart_Text.getText();
@@ -82,6 +82,8 @@ public class AmazonHomePage {
 			} else {
 				System.out.println("Something is wrong with the test case");
 			}
+			
+			Thread.sleep(3000);
 		}
 		
 		
