@@ -1,5 +1,6 @@
 package pageObjectPackage;
 
+import java.io.IOException;
 import java.util.Random;
 
 import org.openqa.selenium.By;
@@ -10,11 +11,13 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 import dataProvider.ConfigFileReader;
+import utilityPackage.TakeScreenshots;
 import utilityPackage.WaitForElementUtility;
 
 public class AmazonHomePage {
 	WebDriver driver;
 	ConfigFileReader configFileReader;
+	TakeScreenshots takeScreenshots;
 	WaitForElementUtility waitForElementUtility = new WaitForElementUtility();
 	public AmazonHomePage(WebDriver driver) {
 		this.driver = driver;
@@ -42,16 +45,21 @@ public class AmazonHomePage {
 		private WebElement AddedToCart_Text;
 		
 		//Search sony 55 inch tv in Amazon.com
-		public void searchItemSonyTV() {
+		public void searchItemSonyTV() throws IOException {
+			takeScreenshots = new TakeScreenshots();
 			waitForElementUtility.waitForElement(Title_Text, driver);
+			//Taking screenshot
+			takeScreenshots.screenShot(driver);
 			
 			//Enter "Sony 55 inch TV" in the search criteria
 			Search_Textbox.sendKeys(new ConfigFileReader().getSearchItem());
+			//Taking screenshot
+			takeScreenshots.screenShot(driver);
 			Search_Button.click();
 		}
 		
 		//Select item from search results
-		public void selectItem() {
+		public void selectItem() throws IOException {
 			
 			//Random generation of integer
 			Random ran = new Random();
@@ -60,12 +68,15 @@ public class AmazonHomePage {
 			//select random item
 			WebElement selectItem = driver.findElement(By.xpath("//div[@data-index='"+ x +"']//a[@class='a-link-normal a-text-normal']"));
 			//WebElement selectItem = driver.findElement(By.xpath(new ConfigFileReader().getSelectItemXpath()));
+			//Taking screenshot
+			takeScreenshots.screenShot(driver);
 			selectItem.click();
 		}
 		
 		//Add to cart
-		public void AddToCart() {
-			
+		public void AddToCart() throws IOException {
+			//Taking screenshot
+			takeScreenshots.screenShot(driver);
 			waitForElementUtility.waitForElement(AddToCart_Button, driver);
 			AddToCart_Button.click();
 		}
@@ -74,6 +85,8 @@ public class AmazonHomePage {
 		public void AddedToCartConfirmation() throws Exception {
 			
 			waitForElementUtility.waitForElement(AddedToCart_Text, driver);
+			//Taking screenshot
+			takeScreenshots.screenShot(driver);
 			String AddedToCartText = AddedToCart_Text.getText();
 			String expectedOutput= "Added to Cart";
 			
